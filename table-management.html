@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Management - Brew & Bean</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <nav class="top-nav">
+            <button class="back-btn" onclick="navigateTo('index.html')">← Back</button>
+            <h1 class="page-title">Table Management</h1>
+            <button class="refresh-btn" onclick="loadTables()">🔄 Refresh</button>
+        </nav>
+
+        <div class="table-summary">
+            <div class="summary-card available">
+                <div class="summary-icon">✅</div>
+                <div class="summary-info">
+                    <div class="summary-number" id="availableTables">0</div>
+                    <div class="summary-label">Available</div>
+                </div>
+            </div>
+            <div class="summary-card occupied">
+                <div class="summary-icon">🔴</div>
+                <div class="summary-info">
+                    <div class="summary-number" id="occupiedTables">0</div>
+                    <div class="summary-label">Occupied</div>
+                </div>
+            </div>
+            <div class="summary-card cleaning">
+                <div class="summary-icon">🧹</div>
+                <div class="summary-info">
+                    <div class="summary-number" id="cleaningTables">0</div>
+                    <div class="summary-label">Cleaning</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tables-grid" id="tablesGrid"></div>
+    </div>
+
+    <div class="modal" id="tableModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Table Details</h2>
+                <button class="close-btn" onclick="closeTableModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Customer Name</label>
+                    <input type="text" id="modalCustomerName" placeholder="Enter customer name">
+                </div>
+                <div class="form-group">
+                    <label>Number of Guests</label>
+                    <input type="number" id="modalGuestCount" min="1" placeholder="1">
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="modalStatus">
+                        <option value="available">Available</option>
+                        <option value="occupied">Occupied</option>
+                        <option value="cleaning">Cleaning</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="modalNotes" rows="3" placeholder="Special requests or notes..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeTableModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveTableDetails()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="table-management.js"></script>
+</body>
+</html>

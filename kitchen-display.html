@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Queue - Brew & Bean</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container kitchen-page">
+        <nav class="top-nav">
+            <button class="back-btn" onclick="navigateTo('index.html')">← Back</button>
+            <h1 class="page-title">Kitchen Queue</h1>
+            <button class="refresh-btn" onclick="loadKitchenOrders()">🔄 Refresh</button>
+        </nav>
+
+        <div class="kitchen-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="pendingCount">0</div>
+                <div class="stat-label">Pending Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="preparingCount">0</div>
+                <div class="stat-label">In Progress</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completedTodayCount">0</div>
+                <div class="stat-label">Completed Today</div>
+            </div>
+        </div>
+
+        <div class="kitchen-queue-container" id="kitchenQueue">
+            <div class="empty-state">
+                <div class="empty-icon">✨</div>
+                <h3>No Active Orders</h3>
+                <p>All caught up! New orders will appear here.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="kitchen-display.js"></script>
+</body>
+</html>

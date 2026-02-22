@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order & POS System - Brew & Bean</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <nav class="top-nav">
+            <button class="back-btn" onclick="navigateTo('index.html')">← Back</button>
+            <h1 class="page-title">Order & POS System</h1>
+            <div class="order-mode-toggle">
+                <button class="mode-btn active" onclick="switchMode('kitchen', this)">Send to Kitchen</button>
+                <button class="mode-btn" onclick="switchMode('pos', this)">Quick Checkout</button>
+            </div>
+        </nav>
+
+        <!-- Order Lookup Section -->
+        <div class="order-lookup-section">
+            <div class="lookup-header">
+                <h2>🔍 Find Kiosk Order</h2>
+            </div>
+            <div class="lookup-container">
+                <input type="text" id="orderLookupInput" placeholder="Type order number (e.g., ORD123456)..." class="lookup-input" onkeypress="if(event.key==='Enter') searchOrderNumber()">
+                <button class="btn btn-primary" onclick="searchOrderNumber()">Search</button>
+                <button class="btn btn-secondary btn-sm" onclick="clearOrderLookup()" id="clearLookupBtn" style="display: none;">Clear</button>
+            </div>
+            <div class="lookup-result" id="lookupResult" style="display: none;"></div>
+        </div>
+
+        <div class="order-entry-layout">
+            <div class="menu-section">
+                <div class="search-bar">
+                    <input type="text" id="menuSearch" placeholder="🔍 Search menu items..." oninput="filterMenu()">
+                </div>
+                <div class="category-tabs" id="categoryTabs"></div>
+                <div class="menu-items-grid" id="menuItemsGrid"></div>
+            </div>
+
+            <div class="order-summary-section">
+                <div class="order-info">
+                    <div class="info-field">
+                        <label id="orderNumberLabel">Order #</label>
+                        <input type="text" id="orderNumber" readonly>
+                    </div>
+                    <div class="info-field" id="customerField">
+                        <label>Table/Customer</label>
+                        <input type="text" id="customerName" placeholder="Table # or Name">
+                    </div>
+                </div>
+
+                <div class="order-items-list" id="orderItemsList">
+                    <div class="empty-order">
+                        <div class="empty-icon">🛒</div>
+                        <p>No items added yet</p>
+                    </div>
+                </div>
+
+                <div class="order-total">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotalAmount">₱0.00</span>
+                    </div>
+                    <div class="total-row discount-row" id="discountRow" style="display: none;">
+                        <span>Discount:</span>
+                        <input type="number" id="discountAmount" min="0" step="0.01" value="0" oninput="calculateTotal()">
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>Total:</span>
+                        <span id="totalAmount">₱0.00</span>
+                    </div>
+                </div>
+
+                <div class="payment-note" id="paymentNote" style="display: none;">
+                    <p>💡 Payment is manual (Cash/Card)</p>
+                </div>
+
+                <div class="order-actions">
+                    <button class="btn btn-secondary" onclick="clearOrder()">Clear</button>
+                    <button class="btn btn-primary" id="submitBtn" onclick="submitOrder()">Submit to Kitchen</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Receipt Modal -->
+        <div class="modal" id="receiptModal">
+            <div class="modal-content receipt-modal">
+                <div class="receipt-print" id="receiptPrint">
+                    <div class="receipt-logo">☕ Brew & Bean</div>
+                    <div class="receipt-shop-info">
+                        Premium Coffee Shop<br>
+                        Thank you for your visit!
+                    </div>
+                    <div class="receipt-divider"></div>
+                    <div class="receipt-number">Receipt #<span id="printReceiptNumber"></span></div>
+                    <div class="receipt-date" id="printReceiptDate"></div>
+                    <div class="receipt-divider"></div>
+                    <div class="receipt-items-list" id="printReceiptItems"></div>
+                    <div class="receipt-divider"></div>
+                    <div class="receipt-totals" id="printReceiptTotals"></div>
+                    <div class="receipt-divider"></div>
+                    <div class="receipt-footer">
+                        Please come again!<br>
+                        Have a great day! ☕
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeReceiptModal()">Close</button>
+                    <button class="btn btn-primary" onclick="window.print()">Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="order-entry.js"></script>
+</body>
+</html>

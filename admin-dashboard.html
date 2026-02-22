@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Brew & Bean</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <nav class="top-nav">
+            <button class="back-btn" onclick="navigateTo('index.html')">← Back</button>
+            <h1 class="page-title">Admin Dashboard</h1>
+            <button class="btn btn-primary" onclick="openAddItemModal()">+ Add Item</button>
+        </nav>
+
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchAdminTab('menu')">Menu Items</button>
+            <button class="tab-btn" onclick="switchAdminTab('categories')">Categories</button>
+            <button class="tab-btn" onclick="switchAdminTab('settings')">Settings</button>
+        </div>
+
+        <div class="admin-content">
+            <div class="admin-panel" id="menuPanel">
+                <div class="panel-header">
+                    <h2>Manage Menu Items</h2>
+                    <div class="search-bar">
+                        <input type="text" id="adminSearch" placeholder="🔍 Search items..." oninput="filterAdminMenu()">
+                    </div>
+                </div>
+                <div class="admin-items-table" id="adminItemsTable"></div>
+            </div>
+
+            <div class="admin-panel hidden" id="categoriesPanel">
+                <div class="panel-header">
+                    <h2>Manage Categories</h2>
+                    <button class="btn btn-primary" onclick="openAddCategoryModal()">+ Add Category</button>
+                </div>
+                <div class="categories-list" id="categoriesList"></div>
+            </div>
+
+            <div class="admin-panel hidden" id="settingsPanel">
+                <div class="panel-header">
+                    <h2>System Settings</h2>
+                </div>
+                <div class="settings-form">
+                    <div class="setting-group">
+                        <label>Shop Name</label>
+                        <input type="text" id="shopName" value="Brew & Bean">
+                    </div>
+                    <div class="setting-group">
+                        <label>Number of Tables</label>
+                        <input type="number" id="tableCount" min="1" value="12">
+                    </div>
+                    <div class="setting-group">
+                        <label>Tax Rate (%)</label>
+                        <input type="number" id="taxRate" min="0" step="0.1" value="0">
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Item Modal -->
+    <div class="modal" id="itemModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="itemModalTitle">Add Menu Item</h2>
+                <button class="close-btn" onclick="closeItemModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editItemId">
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input type="text" id="itemName" placeholder="e.g., Caramel Macchiato">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="itemCategory"></select>
+                </div>
+                <div class="form-group">
+                    <label>Price (₱)</label>
+                    <input type="number" id="itemPrice" min="0" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="itemDescription" rows="3" placeholder="Describe the item..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="itemAvailable" checked>
+                        <span>Available</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeItemModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveMenuItem()">Save Item</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Category</h2>
+                <button class="close-btn" onclick="closeCategoryModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Category Name</label>
+                    <input type="text" id="categoryName" placeholder="e.g., Hot Beverages">
+                </div>
+                <div class="form-group">
+                    <label>Icon (Emoji)</label>
+                    <input type="text" id="categoryIcon" placeholder="☕" maxlength="2">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeCategoryModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveCategory()">Save Category</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
