@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -26,6 +27,11 @@
     --shadow-lg: 0 16px 48px rgba(45, 28, 16, 0.15);
     --shadow-hover: 0 20px 64px rgba(93, 60, 45, 0.2);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Mobile-optimized sizes */
+    --mobile-touch-target: 44px;
+    --mobile-padding: 16px;
+    --mobile-margin: 16px;
 }
 
 body {
@@ -36,6 +42,8 @@ body {
     overflow-x: hidden;
     opacity: 1;
     transition: opacity 0.5s ease-in-out, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .landing-body {
@@ -568,6 +576,11 @@ body {
     border: 1px solid rgba(212, 165, 116, 0.2);
     transform-style: preserve-3d;
     will-change: transform;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-height: 160px;
 }
 
 .dashboard-card::before {
@@ -959,6 +972,14 @@ body {
     transition: var(--transition);
     font-family: 'Poppins', sans-serif;
     letter-spacing: 0.5px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary {
@@ -1097,9 +1118,18 @@ input[type="number"]::-webkit-inner-spin-button {
     transition: var(--transition);
     font-weight: 500;
     color: var(--primary-color);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
-.category-tab:hover {
+.category-tab:hover,
+.category-tab:active {
     background: var(--accent-color);
     color: var(--white);
     transform: translateY(-2px);
@@ -1127,9 +1157,18 @@ input[type="number"]::-webkit-inner-spin-button {
     cursor: pointer;
     transition: var(--transition);
     border: 2px solid transparent;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
-.menu-item:hover {
+.menu-item:hover,
+.menu-item:active {
     background: var(--accent-color);
     color: var(--white);
     transform: scale(1.05);
@@ -4714,4 +4753,555 @@ input[type="number"]::-webkit-inner-spin-button {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* ========== COMPREHENSIVE MOBILE ENHANCEMENTS ========== */
+
+/* Mobile-First Touch Targets */
+@media (max-width: 768px) {
+    /* Ensure all interactive elements are touch-friendly */
+    button,
+    .btn,
+    a.btn,
+    input[type="button"],
+    input[type="submit"],
+    .dashboard-card,
+    .menu-item,
+    .category-tab {
+        min-height: var(--mobile-touch-target);
+        touch-action: manipulation;
+    }
+    
+    /* Improved button sizing */
+    .btn {
+        padding: 14px 28px;
+        font-size: 1rem;
+    }
+    
+    .btn-sm {
+        padding: 10px 20px;
+        min-height: 40px;
+    }
+    
+    .btn-lg {
+        padding: 18px 36px;
+        font-size: 1.1rem;
+    }
+    
+    /* Better form controls */
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+        min-height: var(--mobile-touch-target);
+        padding: 12px 16px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        border-radius: 8px;
+    }
+    
+    /* Search bars */
+    .search-bar input {
+        min-height: 48px;
+        font-size: 16px;
+        padding: 12px 20px 12px 45px;
+    }
+    
+    /* Navigation improvements */
+    .top-nav {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .back-btn,
+    .nav-action-btn {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        min-height: 44px;
+    }
+    
+    .page-title {
+        font-size: 1.3rem;
+        width: 100%;
+        text-align: center;
+        order: -1;
+    }
+    
+    /* Dashboard enhancements */
+    .dashboard-header {
+        padding: 20px 16px;
+    }
+    
+    .dashboard-nav {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .nav-brand {
+        text-align: center;
+    }
+    
+    .nav-actions {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .quick-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 16px;
+    }
+    
+    .stat-card-dash {
+        padding: 16px;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.85rem;
+    }
+    
+    /* Dashboard cards */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px;
+    }
+    
+    .dashboard-card {
+        padding: 24px;
+        min-height: 140px;
+    }
+    
+    .card-icon {
+        font-size: 3rem;
+    }
+    
+    .dashboard-card h2 {
+        font-size: 1.3rem;
+    }
+    
+    .dashboard-card p {
+        font-size: 0.9rem;
+    }
+    
+    /* Order entry improvements */
+    .order-entry-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .menu-section {
+        max-height: none;
+        padding: 16px;
+    }
+    
+    .menu-items-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .menu-item {
+        padding: 12px;
+        min-height: 100px;
+    }
+    
+    .menu-item-name {
+        font-size: 0.9rem;
+    }
+    
+    .menu-item-price {
+        font-size: 1rem;
+    }
+    
+    .order-summary-section {
+        position: sticky;
+        bottom: 0;
+        max-height: 50vh;
+        z-index: 100;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .order-list {
+        max-height: 30vh;
+    }
+    
+    /* Category tabs */
+    .category-tabs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .category-tab {
+        white-space: nowrap;
+        padding: 12px 16px;
+        min-height: 44px;
+    }
+    
+    /* Modals */
+    .modal-content {
+        width: 95%;
+        max-width: 95vw;
+        margin: 20px auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .modal-header {
+        padding: 20px 16px;
+    }
+    
+    .modal-body {
+        padding: 20px 16px;
+    }
+    
+    .modal-footer {
+        padding: 16px;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+    }
+    
+    .close-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 2rem;
+    }
+    
+    /* Tables */
+    .inventory-table-wrapper,
+    .report-table-wrapper,
+    .orders-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .inventory-table,
+    .report-table,
+    .orders-table {
+        min-width: 600px;
+        font-size: 0.85rem;
+    }
+    
+    .inventory-table th,
+    .inventory-table td,
+    .report-table th,
+    .report-table td,
+    .orders-table th,
+    .orders-table td {
+        padding: 10px 8px;
+    }
+    
+    /* Forms */
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+        display: block;
+    }
+    
+    /* Landing page mobile */
+    .hero-section {
+        min-height: 100vh;
+        padding: 80px 20px 60px;
+    }
+    
+    .brand-name {
+        font-size: 2.5rem !important;
+        gap: 8px;
+    }
+    
+    .coffee-cup-logo {
+        font-size: 60px !important;
+    }
+    
+    .tagline {
+        font-size: 1rem;
+        margin: 16px 0;
+    }
+    
+    .subtitle {
+        font-size: 0.95rem;
+        padding: 0 16px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 20px;
+    }
+    
+    .hero-btn {
+        width: 100%;
+        max-width: 100%;
+        padding: 16px 32px;
+        font-size: 1rem;
+    }
+    
+    .features-section {
+        padding: 60px 16px;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.95rem;
+        padding: 0 16px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 0 16px;
+    }
+    
+    .feature-card {
+        padding: 24px;
+    }
+    
+    /* Footer */
+    .dashboard-footer,
+    .footer {
+        padding: 40px 16px 20px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    /* Charts mobile optimization */
+    .charts-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .chart-card {
+        padding: 20px 16px;
+    }
+    
+    .chart-wrapper {
+        height: 280px;
+    }
+    
+    /* Sales monitoring mobile */
+    .sales-stats-section {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .stat-box {
+        padding: 20px;
+    }
+    
+    .stat-big-value {
+        font-size: 1.8rem;
+    }
+    
+    /* Inventory mobile */
+    .inventory-controls {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .inventory-filters {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .filter-btn {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .inventory-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .summary-card {
+        padding: 16px;
+    }
+    
+    .summary-icon {
+        font-size: 2rem;
+    }
+    
+    .summary-value {
+        font-size: 1.5rem;
+    }
+    
+    /* Reports mobile */
+    .report-type-selector {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .report-type-btn {
+        padding: 14px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .report-filters {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 20px 16px;
+    }
+    
+    .report-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    /* Admin panel mobile */
+    .admin-container {
+        padding: 16px;
+    }
+    
+    .admin-tabs {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .tab-btn {
+        white-space: nowrap;
+        padding: 12px 20px;
+        min-height: 44px;
+        flex-shrink: 0;
+    }
+    
+    /* Utility classes for mobile */
+    .mobile-only {
+        display: block !important;
+    }
+    
+    .desktop-only {
+        display: none !important;
+    }
+    
+    /* Improve scrolling */
+    .scroll-container {
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    /* Better spacing */
+    .page-container {
+        padding-bottom: 60px; /* Extra space for mobile keyboards */
+    }
+}
+
+/* Extra small devices (phones in portrait mode) */
+@media (max-width: 480px) {
+    :root {
+        --mobile-padding: 12px;
+        --mobile-margin: 12px;
+    }
+    
+    .brand-name {
+        font-size: 2rem !important;
+    }
+    
+    .coffee-cup-logo {
+        font-size: 50px !important;
+    }
+    
+    .dashboard-card {
+        padding: 20px 16px;
+    }
+    
+    .menu-items-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card-dash {
+        padding: 12px;
+    }
+    
+    .stat-icon {
+        font-size: 2rem;
+    }
+    
+    .quick-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .sales-stats-section,
+    .inventory-summary,
+    .report-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-wrapper {
+        height: 220px;
+    }
+    
+    .btn {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Landscape orientation optimization */
+@media (max-width: 896px) and (orientation: landscape) {
+    .hero-section {
+        min-height: auto;
+        padding: 40px 20px;
+    }
+    
+    .order-summary-section {
+        position: relative;
+        max-height: none;
+    }
+    
+    .modal-content {
+        max-height: 85vh;
+    }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Accessibility - Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 
