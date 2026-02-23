@@ -1,64 +1,66 @@
-# ☕ Brew & Bean - Coffee Shop Management System
+# ☕ Brew & Bean - Professional Coffee Shop Management System
 
-A professional, high-end coffee shop management system with a beautiful coffee-themed design. Built with pure HTML, CSS, and JavaScript - no frameworks needed!
+A premium, professional coffee shop management system designed for advanced business operations. Built with pure HTML, CSS, and JavaScript - no frameworks needed!
 
-## ✨ Features
+## ✨ Core Features
 
-### 1️⃣ Order Tracking / Kitchen Queue Helper
-- **Order Entry**: Staff can quickly enter orders at the counter
-- **Kitchen Display**: Real-time order queue showing pending, preparing, and completed orders
-- **Order Status**: Track orders from pending → preparing → completed
-- **Visual Stats**: Dashboard showing order counts and activity
-
-**How to Use:**
-1. Click "New Order" from the main dashboard
-2. Select items from the menu by clicking on them
-3. Adjust quantities with +/- buttons
-4. Enter table number or customer name
-5. Click "Submit to Kitchen"
-6. Orders appear instantly on the Kitchen Queue page
-
-### 2️⃣ Table / Queue Management
-- **Table Status Tracking**: Available, Occupied, or Cleaning
-- **Customer Information**: Track customer names and guest counts
-- **Quick Overview**: Summary cards showing table availability
-- **Table Notes**: Add special requests or notes to tables
+### 1️⃣ 💰 Cashier System
+- **Order Entry & POS**: All-in-one counter operation system
+- **Quick Item Selection**: Browse items by category or search
+- **Quantity Management**: Easy +/- buttons and item removal
+- **Auto-Calculation**: Automatic subtotal and total computation
+- **Discount Support**: Apply discounts to orders instantly
+- **Receipt Generation**: Professional receipt printing with order details
 
 **How to Use:**
-1. Click "Table Management" from the main dashboard
-2. Click on any table to view/edit details
-3. Update status, customer name, guest count, and notes
-4. Tables are color-coded by status for easy identification
+1. Click "Cashier System" from the main dashboard
+2. Search or browse items by category
+3. Click items to add them to the order (quantity updates automatically)
+4. Enter customer/table name (optional)
+5. Apply discount if needed
+6. Click "Complete & Print" to finalize and print receipt
+7. Payment handled manually (Cash/Card/Voucher)
 
-### 3️⃣ Manual POS Helper (Without Payments)
-- **Quick Checkout**: Fast item selection and billing
-- **Auto-Calculate**: Automatic subtotal and total calculation
-- **Discount Support**: Apply discounts to orders
-- **Receipt Generation**: Print professional receipts
-- **Search Function**: Quick search for menu items
-
-**How to Use:**
-1. Click "POS Helper" from the main dashboard
-2. Add items by clicking on them
-3. Apply discount if needed
-4. Click "Print Receipt" to generate receipt
-5. Handle payment manually (cash/card)
-
-### 4️⃣ QR Menu + Update Dashboard
-- **Customer-Facing Menu**: Beautiful mobile-friendly digital menu
-- **Real-Time Updates**: Changes reflect immediately
-- **Item Availability**: Hide unavailable items automatically
-- **Admin Control**: Easy price and item management
-- **No Printing Needed**: "Hindi na po kailangan magpa-print ulit ng menu!"
+### 2️⃣ 📊 Sales Monitoring
+- **Daily Sales Tracking**: Monitor total sales for each day
+- **Order Count**: Track number of completed orders
+- **Revenue Analytics**: View daily revenue at a glance
+- **Professional Dashboard**: Clean, real-time statistics
+- **Quick Overview**: Immediate visibility into business performance
 
 **How to Use:**
-- **For Customers**: Access qr-menu.html (share via QR code)
-- **For Admin**: 
-  1. Click "Admin Panel" from main dashboard
-  2. Add/edit/delete menu items
-  3. Update prices instantly
-  4. Toggle item availability (hide/show)
-  5. Manage categories
+1. Click "Sales Monitoring" on the dashboard
+2. View today's sales and order count
+3. Monitor key metrics in real-time
+4. Use this data for daily shift reporting
+
+### 3️⃣ 📦 Inventory Management
+- **Stock Tracking**: Automatic inventory updates as orders are placed
+- **Item Availability**: Show/hide items based on availability
+- **Stock Status**: Quick view of available vs. out-of-stock items
+- **Integrated System**: Stock updates automatically with each sale
+- **Admin Control**: Manage stock levels from admin panel
+
+**How to Use:**
+1. Stock updates automatically when orders are completed
+2. Go to Admin Panel to manually adjust stock if needed
+3. Hide items when out of stock
+4. View available items count on dashboard
+
+### 4️⃣ ⚙️ Admin Panel
+- **Menu Management**: Add, edit, delete menu items
+- **Price Updates**: Change prices instantly
+- **Inventory Control**: Manage item availability and stock
+- **Category Management**: Organize items by category
+- **System Settings**: Configure shop name, tax rates, and more
+- **Secure Access**: User-friendly admin interface
+
+**How to Use:**
+1. Click "Admin Panel" from the main dashboard
+2. **Menu Items Tab**: Add new items, edit prices, toggle availability
+3. **Categories Tab**: Manage item categories with icons
+4. **Settings Tab**: Update shop name, table count, and tax rates
+5. All changes reflect immediately in the cashier system
 
 ## 🚀 Getting Started
 
@@ -71,30 +73,26 @@ A professional, high-end coffee shop management system with a beautiful coffee-t
 ```
 coffeeshop/
 ├── index.html              (Main Dashboard)
-├── order-entry.html        (Order Entry Page)
-├── kitchen-display.html    (Kitchen Queue)
-├── table-management.html   (Table Management)
-├── pos-system.html         (POS Helper)
-├── qr-menu.html           (Customer Menu)
+├── order-entry.html        (Cashier System)
 ├── admin-dashboard.html    (Admin Panel)
+├── landing.html            (Landing Page)
 ├── styles.css             (All Styling)
-├── app.js                 (Core Functions)
-├── order-entry.js         (Order Entry Logic)
-├── kitchen-display.js     (Kitchen Logic)
-├── table-management.js    (Table Logic)
-├── pos-system.js          (POS Logic)
-├── qr-menu.js            (Menu Display Logic)
-└── admin-dashboard.js     (Admin Logic)
+├── app.js                 (Core Functions & Data)
+├── order-entry.js         (Cashier Logic)
+├── dashboard.js           (Dashboard Logic)
+├── admin-dashboard.js     (Admin Panel Logic)
+├── landing-enhanced.js    (Landing Page Effects)
+└── PRICING.md             (Feature & Pricing Guide)
 ```
 
-## 🎨 Design Features
+## 🎨 Design Excellence
 
-- **Coffee Shop Vibes**: Warm brown, cream, and coffee-themed colors
-- **Smooth Animations**: Professional transitions and hover effects
-- **Responsive Design**: Works on desktop, tablet, and mobile
-- **Intuitive UI**: Easy to use, even for non-technical staff
-- **Visual Feedback**: Notifications for all actions
-- **Modern Look**: Clean, professional interface
+- **Premium Aesthetic**: Sophisticated brown and cream color palette
+- **Professional UI**: Modern, clean interface suitable for business use
+- **Smooth Animations**: Elegant transitions and interactive elements
+- **Fully Responsive**: Optimized for desktop, tablet, and mobile
+- **User-Friendly**: Intuitive design for easy staff training
+- **Accessibility**: Clear visual hierarchy and readable fonts
 
 ## 💾 Data Storage
 

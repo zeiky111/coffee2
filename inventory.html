@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredients Inventory - Brew & Bean</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <nav class="top-nav">
+            <button class="back-btn" onclick="navigateTo('index.html')">← Back</button>
+            <h1 class="page-title">🧪 Ingredients Inventory</h1>
+            <button class="nav-action-btn" onclick="navigateTo('inventory-reports.html')" title="View Reports">📊 Reports</button>
+        </nav>
+
+        <div class="inventory-container">
+            <!-- Filter & Search Section -->
+            <div class="inventory-controls">
+                <div class="search-bar">
+                    <input type="text" id="inventorySearch" placeholder="🔍 Search items..." oninput="filterInventory()">
+                </div>
+                <div class="inventory-filters">
+                    <button class="filter-btn active" onclick="filterByStock('all')">All Ingredients</button>
+                    <button class="filter-btn" onclick="filterByStock('low')">Need Reorder</button>
+                    <button class="filter-btn" onclick="filterByStock('out')">Out of Stock</button>
+                </div>
+            </div>
+
+            <!-- Inventory Summary -->
+            <div class="inventory-summary">
+                <div class="summary-card">
+                    <div class="summary-icon">📦</div>
+                    <div class="summary-info">
+                        <div class="summary-value" id="totalItems">0</div>
+                        <div class="summary-label">Total Items</div>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">✅</div>
+                    <div class="summary-info">
+                        <div class="summary-value" id="inStockItems">0</div>
+                        <div class="summary-label">In Stock</div>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">⚠️</div>
+                    <div class="summary-info">
+                        <div class="summary-value" id="lowStockItems">0</div>
+                        <div class="summary-label">Low Stock</div>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">❌</div>
+                    <div class="summary-info">
+                        <div class="summary-value" id="outStockItems">0</div>
+                        <div class="summary-label">Out of Stock</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Table -->
+            <div class="inventory-table-wrapper">
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Ingredient Name</th>
+                            <th>Category</th>
+                            <th>Supplier</th>
+                            <th>Cost Price</th>
+                            <th>Current Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTableBody">
+                        <tr class="empty-row">
+                            <td colspan="7">Loading ingredients...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Stock Modal -->
+    <div class="modal" id="updateStockModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Update Ingredient Stock</h2>
+                <button class="close-btn" onclick="closeStockModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editItemId">
+                <div class="form-group">
+                    <label>Ingredient Name</label>
+                    <input type="text" id="editItemName" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Supplier</label>
+                    <input type="text" id="editItemSupplier" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Current Stock</label>
+                    <input type="number" id="editItemStock" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label>Low Stock Alert (threshold)</label>
+                    <input type="number" id="editItemThreshold" min="1" value="10">
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="editStockNotes" placeholder="e.g., Supplier delivery, return, damage..." rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeStockModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveStockUpdate()">Save Stock</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="inventory.js"></script>
+</body>
+</html>

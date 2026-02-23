@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Monitoring - Brew & Bean</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="page-container">
+        <nav class="top-nav">
+            <button class="back-btn" onclick="navigateTo('index.html')">← Back</button>
+            <h1 class="page-title">📊 Sales Monitoring</h1>
+            <button class="nav-action-btn" onclick="refreshSalesData()" title="Refresh">🔄 Refresh</button>
+        </nav>
+
+        <div class="sales-monitoring-container">
+            <!-- Top Stats Section -->
+            <section class="sales-stats-section">
+                <div class="stat-box">
+                    <div class="stat-label">Total Sales Today</div>
+                    <div class="stat-big-value" id="totalSalesToday">₱0.00</div>
+                    <div class="stat-change positive" id="todaySalesChange">↑ 0%</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Total Orders Today</div>
+                    <div class="stat-big-value" id="totalOrdersToday">0</div>
+                    <div class="stat-change" id="todayOrdersChange">0 orders</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Avg. Order Value</div>
+                    <div class="stat-big-value" id="avgOrderValue">₱0.00</div>
+                    <div class="stat-change neutral" id="avgChange">Per order</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Top Category</div>
+                    <div class="stat-big-value" id="topCategory">-</div>
+                    <div class="stat-change neutral" id="topCategoryRevenue">₱0.00</div>
+                </div>
+            </section>
+
+            <!-- Controls -->
+            <div class="sales-controls">
+                <div class="date-range-picker">
+                    <label>Date Range:</label>
+                    <input type="date" id="fromDate" />
+                    <span>to</span>
+                    <input type="date" id="toDate" />
+                    <button class="btn btn-primary" onclick="applyDateFilter()">Apply Filter</button>
+                    <button class="btn btn-secondary" onclick="resetDateFilter()">Reset</button>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <!-- Daily Sales Chart -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Daily Sales Trend</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="dailySalesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Top Products Chart -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Top 5 Products</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="topProductsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Sales by Category Chart -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Sales by Category</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Hourly Sales Chart -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Hourly Sales Distribution</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="hourlyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders Section -->
+            <section class="recent-orders-section">
+                <h3 class="section-title">Recent Orders</h3>
+                <div class="orders-table-wrapper">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order #</th>
+                                <th>Time</th>
+                                <th>Items</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentOrdersBody">
+                            <tr class="empty-row">
+                                <td colspan="5">No orders yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Summary Stats -->
+            <section class="summary-stats">
+                <div class="summary-item">
+                    <h4>This Month</h4>
+                    <div class="summary-value" id="monthlyTotal">₱0.00</div>
+                    <p class="summary-label">Total Revenue</p>
+                </div>
+                <div class="summary-item">
+                    <h4>This Week</h4>
+                    <div class="summary-value" id="weeklyTotal">₱0.00</div>
+                    <p class="summary-label">Total Revenue</p>
+                </div>
+                <div class="summary-item">
+                    <h4>Best Day</h4>
+                    <div class="summary-value" id="bestDay">-</div>
+                    <p class="summary-label" id="bestDayAmount">₱0.00</p>
+                </div>
+                <div class="summary-item">
+                    <h4>Avg Daily</h4>
+                    <div class="summary-value" id="avgDaily">₱0.00</div>
+                    <p class="summary-label">Average Sales</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="sales-monitoring.js"></script>
+</body>
+</html>

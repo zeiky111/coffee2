@@ -21,22 +21,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function updateDashboardStats() {
     const orders = getOrders();
-    const tables = getTables();
     const menuItems = getMenuItems();
     
     const today = new Date().toDateString();
-    const todayOrders = orders.filter(o => new Date(o.timestamp).toDateString() === today);
-    const activeOrders = orders.filter(o => o.status === 'pending' || o.status === 'preparing');
-    const availableTables = tables.filter(t => t.status === 'available');
+    const todayOrders = orders.filter(o => o.timestamp && new Date(o.timestamp).toDateString() === today);
+    const todayOrderCount = todayOrders.length;
+    
+    // Calculate total sales for today
+    const totalSalesAmount = todayOrders.reduce((sum, order) => sum + (order.total || 0), 0);
+    
+    // Count available items
+    const availableItems = menuItems.filter(item => item.available).length;
     
     // Animate stats
-    animateStatValue('todayOrders', todayOrders.length);
-    animateStatValue('activeOrders', activeOrders.length);
-    animateStatValue('availableTables', availableTables.length);
+    animateStatValue('todayOrders', todayOrderCount);
+    animateCurrencyValue('totalSales', totalSalesAmount);
+    animateStatValue('stockAlerts', availableItems);
     animateStatValue('menuItems', menuItems.length);
 }
 
-function animateStatValue(elementId, targetValue) {
+function animateCurrencyValue(elementId, targetValue) {
     const element = document.getElementById(elementId);
     if (!element) return;
     
@@ -47,8 +51,26 @@ function animateStatValue(elementId, targetValue) {
         if (current >= targetValue) {
             current = targetValue;
             clearInterval(timer);
+            element.textContent = formatCurrency(current);
+        } else {
+            element.textContent = formatCurrency(current);
         }
-        element.textContent = Math.floor(current);
+    }, 30);
+}
+
+function animateStatValue(elementId, targetValue) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    let current = 0;
+    const increment = Math.ceil(targetValue / 30);
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= targetValue) {
+            current = targetValue;
+            clearInterval(timer);
+        }
+        element.textContent = current;
     }, 30);
 }
 

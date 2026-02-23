@@ -25,9 +25,6 @@
                     <button class="nav-btn" onclick="navigateTo('landing.html')">
                         <span>← Home</span>
                     </button>
-                    <button class="nav-btn primary" onclick="navigateTo('qr-menu.html')">
-                        <span>📱 Menu</span>
-                    </button>
                 </div>
             </div>
         </header>
@@ -42,17 +39,17 @@
                 </div>
             </div>
             <div class="stat-card-dash">
-                <div class="stat-icon">⏱️</div>
+                <div class="stat-icon">💰</div>
                 <div class="stat-info">
-                    <div class="stat-value" id="activeOrders">0</div>
-                    <div class="stat-label">Active Orders</div>
+                    <div class="stat-value" id="totalSales">₱0.00</div>
+                    <div class="stat-label">Today's Sales</div>
                 </div>
             </div>
             <div class="stat-card-dash">
-                <div class="stat-icon">🪑</div>
+                <div class="stat-icon">📦</div>
                 <div class="stat-info">
-                    <div class="stat-value" id="availableTables">0</div>
-                    <div class="stat-label">Tables Available</div>
+                    <div class="stat-value" id="stockAlerts">0</div>
+                    <div class="stat-label">Stock Items</div>
                 </div>
             </div>
             <div class="stat-card-dash">
@@ -83,35 +80,24 @@
                     </div>
                 </div>
 
-                <div class="dashboard-card" onclick="navigateTo('kitchen-display.html')" data-aos="fade-up" data-aos-delay="100">
+                <div class="dashboard-card" onclick="navigateTo('sales-monitoring.html')" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-glow"></div>
-                    <div class="card-icon">🍳</div>
-                    <h2>Kitchen Queue</h2>
-                    <p>View and manage active orders in real-time</p>
+                    <div class="card-icon">📊</div>
+                    <h2>Sales Monitoring</h2>
+                    <p>Track daily sales and view revenue analytics</p>
                     <div class="card-footer">
-                        <span class="card-badge">Real-time</span>
+                        <span class="card-badge">Analytics</span>
                         <div class="card-arrow">→</div>
                     </div>
                 </div>
 
-                <div class="dashboard-card" onclick="navigateTo('table-management.html')" data-aos="fade-up" data-aos-delay="200">
+                <div class="dashboard-card" onclick="navigateTo('inventory.html')" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-glow"></div>
-                    <div class="card-icon">🪑</div>
-                    <h2>Table Management</h2>
-                    <p>Track tables and customer queue efficiently</p>
+                    <div class="card-icon">📦</div>
+                    <h2>Inventory Management</h2>
+                    <p>Track stock levels and manage inventory</p>
                     <div class="card-footer">
-                        <span class="card-badge">Organized</span>
-                        <div class="card-arrow">→</div>
-                    </div>
-                </div>
-
-                <div class="dashboard-card" onclick="navigateTo('qr-menu.html')" data-aos="fade-up" data-aos-delay="0">
-                    <div class="card-glow"></div>
-                    <div class="card-icon">📱</div>
-                    <h2>QR Menu</h2>
-                    <p>Customer-facing digital menu - no printing needed!</p>
-                    <div class="card-footer">
-                        <span class="card-badge">Digital</span>
+                        <span class="card-badge">System</span>
                         <div class="card-arrow">→</div>
                     </div>
                 </div>
@@ -138,16 +124,16 @@
                 </div>
                 <div class="footer-links">
                     <div class="footer-column">
-                        <h4>Features</h4>
-                        <a href="order-entry.html">Order Entry</a>
-                        <a href="kitchen-display.html">Kitchen Display</a>
-                        <a href="table-management.html">Table Management</a>
+                        <h4>Operations</h4>
+                        <a href="order-entry.html">Cashier System</a>
+                        <a href="sales-monitoring.html">Sales Monitoring</a>
+                        <a href="admin-dashboard.html">Admin Panel</a>
                     </div>
                     <div class="footer-column">
-                        <h4>Tools</h4>
-                        <a href="pos-system.html">POS System</a>
-                        <a href="qr-menu.html">QR Menu</a>
-                        <a href="admin-dashboard.html">Admin Panel</a>
+                        <h4>Management</h4>
+                        <a href="inventory.html">Inventory</a>
+                        <a href="admin-dashboard.html">Items & Pricing</a>
+                        <a href="admin-dashboard.html">Settings</a>
                     </div>
                 </div>
             </div>

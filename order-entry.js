@@ -1,4 +1,4 @@
-// Combined Order Entry & POS System
+// Cashier System - Order Entry & Checkout
 let currentOrder = {
     orderNumber: '',
     customerName: '',
@@ -10,7 +10,6 @@ let currentOrder = {
 };
 
 let selectedCategory = null;
-let currentMode = 'kitchen'; // 'kitchen' or 'pos'
 
 // Initialize order entry page
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,64 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initializeOrderEntry() {
-    currentOrder.orderNumber = generateOrderNumber();
+    currentOrder.orderNumber = generateReceiptNumber();
     document.getElementById('orderNumber').value = currentOrder.orderNumber;
     
     loadCategoryTabs();
     loadMenuItems();
-    updateModeUI();
-}
-
-function switchMode(mode, buttonEl) {
-    currentMode = mode;
-    
-    // Update active button
-    const buttons = document.querySelectorAll('.mode-btn');
-    buttons.forEach(btn => {
-        btn.classList.remove('active');
-    });
-    if (buttonEl) {
-        buttonEl.classList.add('active');
-    } else if (buttons.length) {
-        const targetIndex = mode === 'pos' ? 1 : 0;
-        if (buttons[targetIndex]) {
-            buttons[targetIndex].classList.add('active');
-        }
-    }
-    
-    // Generate new number based on mode
-    if (mode === 'pos') {
-        currentOrder.orderNumber = generateReceiptNumber();
-    } else {
-        currentOrder.orderNumber = generateOrderNumber();
-    }
-    document.getElementById('orderNumber').value = currentOrder.orderNumber;
-    
-    updateModeUI();
-}
-
-function updateModeUI() {
-    const orderNumberLabel = document.getElementById('orderNumberLabel');
-    const customerField = document.getElementById('customerField');
-    const discountRow = document.getElementById('discountRow');
-    const paymentNote = document.getElementById('paymentNote');
-    const submitBtn = document.getElementById('submitBtn');
-    
-    if (currentMode === 'pos') {
-        orderNumberLabel.textContent = 'Receipt #';
-        customerField.style.display = 'none';
-        discountRow.style.display = 'flex';
-        paymentNote.style.display = 'block';
-        submitBtn.textContent = 'Print Receipt';
-        submitBtn.className = 'btn btn-success';
-    } else {
-        orderNumberLabel.textContent = 'Order #';
-        customerField.style.display = 'block';
-        discountRow.style.display = 'none';
-        paymentNote.style.display = 'none';
-        submitBtn.textContent = 'Submit to Kitchen';
-        submitBtn.className = 'btn btn-primary';
-    }
 }
 
 function loadCategoryTabs() {
@@ -208,8 +154,8 @@ function calculateTotal() {
         return sum + (item.price * item.quantity);
     }, 0);
     
-    // Apply discount if in POS mode
-    currentOrder.discount = currentMode === 'pos' ? (parseFloat(document.getElementById('discountAmount').value) || 0) : 0;
+    // Apply discount
+    currentOrder.discount = parseFloat(document.getElementById('discountAmount').value) || 0;
     currentOrder.total = currentOrder.subtotal - currentOrder.discount;
     
     document.getElementById('subtotalAmount').textContent = formatCurrency(currentOrder.subtotal);
@@ -261,63 +207,17 @@ function submitOrder() {
         return;
     }
     
-    if (currentMode === 'kitchen') {
-        // Kitchen mode - submit to kitchen queue
-        const customerName = document.getElementById('customerName').value.trim();
-        if (!customerName) {
-            showNotification('Please enter table number or customer name', 'error');
-            return;
-        }
-        
-        // Auto-occupy table if a table number is provided
-        occupyTableIfNeeded(customerName);
-        
-        currentOrder.customerName = customerName;
-        currentOrder.timestamp = new Date().toISOString();
-        currentOrder.status = 'pending';
-        
-        const orders = getOrders();
-        orders.push({...currentOrder});
-        saveOrders(orders);
-        
-        showNotification(`Order ${currentOrder.orderNumber} submitted to kitchen!`, 'success');
-        
-        // Auto-switch to Quick Checkout and print receipt
-        setTimeout(() => {
-            // Switch to POS mode
-            switchMode('pos');
-            calculateTotal();
-            
-            // Print receipt
-            printReceipt();
-        }, 1000);
-    } else {
-        // POS mode - print receipt
-        printReceipt();
-    }
-}
-
-function occupyTableIfNeeded(input) {
-    const tables = getTables();
-    if (!tables.length) {
-        return;
-    }
-
-    const match = input.match(/\d+/);
-    if (!match) {
-        return;
-    }
-
-    const tableNumber = parseInt(match[0], 10);
-    const table = tables.find(t => t.number === tableNumber);
-    if (!table) {
-        return;
-    }
-
-    table.status = 'occupied';
-    table.customerName = input;
-    table.guestCount = table.guestCount || 0;
-    saveTables(tables);
+    // Save the complete order
+    currentOrder.timestamp = new Date().toISOString();
+    const orders = getOrders();
+    orders.push({...currentOrder});
+    saveOrders(orders);
+    
+    // Update inventory - deduct ordered items from stock
+    updateStockFromOrder(currentOrder.items);
+    
+    // Print receipt
+    printReceipt();
 }
 
 function printReceipt() {
@@ -371,7 +271,7 @@ function closeReceiptModal() {
 
 function resetOrder() {
     currentOrder = {
-        orderNumber: currentMode === 'pos' ? generateReceiptNumber() : generateOrderNumber(),
+        orderNumber: generateReceiptNumber(),
         customerName: '',
         items: [],
         subtotal: 0,
@@ -393,96 +293,3 @@ document.getElementById('receiptModal')?.addEventListener('click', (e) => {
         closeReceiptModal();
     }
 });
-
-// Order Lookup Functions
-function searchOrderNumber() {
-    const orderNumber = document.getElementById('orderLookupInput').value.trim().toUpperCase();
-    
-    if (!orderNumber) {
-        showNotification('Please enter an order number', 'error');
-        return;
-    }
-    
-    const orders = getKioskOrders();
-    const foundOrder = orders.find(o => o.orderNumber === orderNumber);
-    
-    if (!foundOrder) {
-        showNotification(`Order ${orderNumber} not found`, 'error');
-        document.getElementById('lookupResult').style.display = 'none';
-        return;
-    }
-    
-    displayOrderLookupResult(foundOrder);
-}
-
-function displayOrderLookupResult(order) {
-    const resultDiv = document.getElementById('lookupResult');
-    const clearBtn = document.getElementById('clearLookupBtn');
-    
-    resultDiv.innerHTML = `
-        <div class="lookup-order-card">
-            <div class="lookup-order-header">
-                <div class="lookup-order-number">Order #${order.orderNumber}</div>
-                <div class="lookup-order-time">${formatTime(new Date(order.timestamp))}</div>
-            </div>
-            
-            <div class="lookup-order-items">
-                <div class="lookup-items-label">Items:</div>
-                ${order.items.map(item => `
-                    <div class="lookup-item-row">
-                        <span>${item.quantity}x ${item.name}</span>
-                        <span>${formatCurrency(item.price * item.quantity)}</span>
-                    </div>
-                `).join('')}
-            </div>
-            
-            <div class="lookup-order-footer">
-                <div class="lookup-total">
-                    <span>Total:</span>
-                    <span>${formatCurrency(order.total)}</span>
-                </div>
-                <button class="btn btn-success" onclick="addLookupOrderToCart('${order.id}')">
-                    Add to Checkout
-                </button>
-            </div>
-        </div>
-    `;
-    
-    resultDiv.style.display = 'block';
-    clearBtn.style.display = 'inline-block';
-    showNotification(`Order found!`, 'success');
-}
-
-function addLookupOrderToCart(orderId) {
-    const orders = getKioskOrders();
-    const order = orders.find(o => o.id === orderId);
-    
-    if (!order) return;
-    
-    // Add order items to current order
-    order.items.forEach(item => {
-        const existingItem = currentOrder.items.find(i => i.id === item.id);
-        
-        if (existingItem) {
-            existingItem.quantity += item.quantity;
-        } else {
-            currentOrder.items.push({...item});
-        }
-    });
-    
-    // Update display
-    renderOrderItems();
-    calculateTotal();
-    
-    // Remove from kiosk orders
-    removeKioskOrder(orderId);
-    clearOrderLookup();
-    
-    showNotification(`Order #${order.orderNumber} added to checkout`, 'success');
-}
-
-function clearOrderLookup() {
-    document.getElementById('orderLookupInput').value = '';
-    document.getElementById('lookupResult').style.display = 'none';
-    document.getElementById('clearLookupBtn').style.display = 'none';
-}
